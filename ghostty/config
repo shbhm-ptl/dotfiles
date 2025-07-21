@@ -1,0 +1,8 @@
+theme = catppuccin-mocha
+font-family = "MesloLGS Nerd Font"
+font-size = 14
+mouse-hide-while-typing = true
+window-decoration = true
+macos-option-as-alt = true
+background-opacity = 0.90
+background-blur-radius = 30
