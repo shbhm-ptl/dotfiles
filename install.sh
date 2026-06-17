@@ -73,14 +73,6 @@ else
   git -C ~/.tmux/plugins/tpm pull --ff-only
 fi
 
-# ── Patch borrowed hardcoded paths in tmux.conf ─────────────────────────────
-TMUX_CONF="$DOTFILES_DIR/tmux/tmux.conf"
-if grep -q '/Users/omerxx' "$TMUX_CONF"; then
-  log "Fixing hardcoded /Users/omerxx paths in tmux.conf..."
-  sed -i '' "s|/Users/omerxx/dotfiles|$DOTFILES_DIR|g" "$TMUX_CONF"
-  sed -i '' "s|~/dotfiles|$DOTFILES_DIR|g" "$TMUX_CONF"
-fi
-
 # ── Config symlinks ──────────────────────────────────────────────────────────
 mkdir -p ~/.config/starship ~/.config/tmux ~/.config/ghostty ~/.config/btop ~/.config/neofetch
 
