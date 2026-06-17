@@ -23,8 +23,18 @@ else
   log "Homebrew already installed"
 fi
 
+# ── Xcode CLI tools (git, make, etc.) ───────────────────────────────────────
+if ! xcode-select -p &>/dev/null; then
+  log "Installing Xcode CLI tools..."
+  xcode-select --install
+  # Wait for install to complete before continuing
+  until xcode-select -p &>/dev/null; do sleep 5; done
+else
+  log "Xcode CLI tools already installed"
+fi
+
 # ── CLI tools ───────────────────────────────────────────────────────────────
-log "Installing Homebrew packages..."
+log "Installing shell & terminal tools..."
 brew install \
   neovim \
   bat \
@@ -36,6 +46,26 @@ brew install \
   zsh-syntax-highlighting \
   tmux \
   btop
+
+# ── Neovim ecosystem ─────────────────────────────────────────────────────────
+log "Installing neovim dependencies..."
+brew install \
+  ripgrep \
+  fd \
+  lazygit \
+  tree-sitter \
+  node \
+  python3
+
+# ── General dev tools ────────────────────────────────────────────────────────
+log "Installing general dev tools..."
+brew install \
+  gh \
+  git \
+  wget \
+  jq \
+  curl \
+  make
 
 # neofetch was removed from homebrew; try the community tap, fall back to fastfetch
 if ! brew install neofetch 2>/dev/null; then
