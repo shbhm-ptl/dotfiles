@@ -1,3 +1,4 @@
+alias cd="z"
 alias nv="nvim"
 alias c="clear"
 
@@ -35,6 +36,9 @@ alias tree="eza --icons=always --tree"
 
 # Environment
 export EDITOR=/opt/homebrew/bin/nvim
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 # Completion system
@@ -47,15 +51,17 @@ eval "$(starship init zsh)"
 # Zoxide smart cd
 eval "$(zoxide init zsh)"
 
+# Atuin shell history (searchable, syncable)
+eval "$(atuin init zsh)"
+
 # fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.config/fzf-tab/fzf-tab.plugin.zsh ] && source ~/.config/fzf-tab/fzf-tab.plugin.zsh
 
 # zsh-autosuggestions
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#7f849c'
 
 # fzf-tab with icons and preview
-source ~/.fzf-tab/fzf-tab.plugin.zsh
 zstyle ':fzf-tab:complete:*' fzf-preview 'bat --style=numbers --color=always --line-range=:500 {} 2>/dev/null || cat {} 2>/dev/null'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':fzf-tab:*' switch-group ',' '.'
@@ -65,3 +71,23 @@ zstyle ':completion:*' menu select
 # zsh-syntax-highlighting (must come last)
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+export PATH="/opt/homebrew/opt/unzip/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+# opencode
+export PATH="$HOME/.opencode/bin:$PATH"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<

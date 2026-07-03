@@ -65,7 +65,17 @@ brew install \
   wget \
   jq \
   curl \
-  make
+  make \
+  atuin \
+  diffnav
+
+# gh-dash (GitHub PR/issue/notifications dashboard) is a gh CLI extension
+if ! gh extension list 2>/dev/null | grep -q "dlvhdr/gh-dash"; then
+  log "Installing gh-dash..."
+  gh extension install dlvhdr/gh-dash
+else
+  log "gh-dash already installed"
+fi
 
 # neofetch was removed from homebrew; try the community tap, fall back to fastfetch
 if ! brew install neofetch 2>/dev/null; then
@@ -86,12 +96,12 @@ log "Installing MesloLGS Nerd Font..."
 brew install --cask font-meslo-lg-nerd-font || warn "Font already installed"
 
 # ── zsh plugins (not via brew) ───────────────────────────────────────────────
-if [ ! -d "$HOME/.fzf-tab" ]; then
+if [ ! -d "$HOME/.config/fzf-tab" ]; then
   log "Cloning fzf-tab..."
-  git clone https://github.com/Aloxaf/fzf-tab ~/.fzf-tab
+  git clone https://github.com/Aloxaf/fzf-tab ~/.config/fzf-tab
 else
   log "fzf-tab already present, updating..."
-  git -C ~/.fzf-tab pull --ff-only
+  git -C ~/.config/fzf-tab pull --ff-only
 fi
 
 # ── TPM (Tmux Plugin Manager) ────────────────────────────────────────────────
@@ -104,7 +114,7 @@ else
 fi
 
 # ── Config symlinks ──────────────────────────────────────────────────────────
-mkdir -p ~/.config/starship ~/.config/tmux ~/.config/ghostty ~/.config/btop ~/.config/neofetch
+mkdir -p ~/.config/starship ~/.config/tmux ~/.config/ghostty ~/.config/btop ~/.config/neofetch ~/.config/atuin ~/.config/gh-dash
 
 symlink() {
   local src="$1" dst="$2"
@@ -123,10 +133,19 @@ symlink "$DOTFILES_DIR/tmux/tmux.conf"         "$HOME/.config/tmux/tmux.conf"
 symlink "$DOTFILES_DIR/ghostty/config"         "$HOME/.config/ghostty/config"
 symlink "$DOTFILES_DIR/btop/btop.conf"         "$HOME/.config/btop/btop.conf"
 symlink "$DOTFILES_DIR/neofetch/config.conf"   "$HOME/.config/neofetch/config.conf"
+symlink "$DOTFILES_DIR/atuin/config.toml"      "$HOME/.config/atuin/config.toml"
+symlink "$DOTFILES_DIR/gh-dash/config.yml"     "$HOME/.config/gh-dash/config.yml"
+
+# ── Import existing shell history into atuin ────────────────────────────────
+if command -v atuin &>/dev/null; then
+  log "Importing shell history into atuin..."
+  atuin import auto || warn "atuin import failed, run 'atuin import auto' manually"
+fi
 
 # ── Done ────────────────────────────────────────────────────────────────────
 echo ""
 log "Installation complete. Next steps:"
 echo "  1. Restart your shell (or: source ~/.zshrc)"
-echo "  2. Open tmux, then press Ctrl-a + I to install tmux plugins"
+echo "  2. Open tmux, then press Ctrl-b + I to install tmux plugins"
 echo "  3. In Ghostty, the font and theme are already set via the config"
+echo "  4. Run 'gh dash' for the GitHub PR/issue dashboard"

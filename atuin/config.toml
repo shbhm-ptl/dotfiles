@@ -1,0 +1,10 @@
+## which style to use
+## possible values: auto, full, compact
+style = "compact"
+
+## Defaults to true. If enabled, upon hitting enter Atuin will immediately execute the command. Press tab to return to the shell and edit.
+enter_accept = true
+
+[sync]
+# Enable sync v2 by default
+records = true
