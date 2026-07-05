@@ -48,9 +48,8 @@ brew install \
   btop
 
 # ── Neovim ecosystem ─────────────────────────────────────────────────────────
-# Config is kickstart.nvim (see the nvim submodule). Needs Neovim >= 0.11 for
-# the built-in vim.pack plugin manager, ripgrep/fd for Telescope, and the
-# tree-sitter CLI (installed below via npm) to compile treesitter parsers.
+# Config lives in the nvim submodule (lazy.nvim + Mason). Needs ripgrep/fd for
+# Telescope and a C compiler (from Xcode CLI tools) for treesitter parsers.
 log "Installing neovim dependencies..."
 brew install \
   ripgrep \
@@ -60,12 +59,12 @@ brew install \
   node \
   python3
 
-# tree-sitter CLI (the Homebrew `tree-sitter` formula ships only the library,
-# not the CLI that nvim-treesitter needs to compile parsers)
+# tree-sitter CLI (handy for treesitter parser work; the Homebrew `tree-sitter`
+# formula ships only the library, not the CLI)
 log "Installing tree-sitter CLI..."
 npm install -g tree-sitter-cli
 
-# Formatters + linters used by conform.nvim / the LSP setup in kickstart
+# Formatters + linters used by the nvim config's Format() / LSP setup
 log "Installing neovim formatters & linters..."
 brew install \
   ruff \
