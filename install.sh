@@ -48,6 +48,9 @@ brew install \
   btop
 
 # ── Neovim ecosystem ─────────────────────────────────────────────────────────
+# Config is kickstart.nvim (see the nvim submodule). Needs Neovim >= 0.11 for
+# the built-in vim.pack plugin manager, ripgrep/fd for Telescope, and the
+# tree-sitter CLI (installed below via npm) to compile treesitter parsers.
 log "Installing neovim dependencies..."
 brew install \
   ripgrep \
@@ -56,6 +59,26 @@ brew install \
   tree-sitter \
   node \
   python3
+
+# tree-sitter CLI (the Homebrew `tree-sitter` formula ships only the library,
+# not the CLI that nvim-treesitter needs to compile parsers)
+log "Installing tree-sitter CLI..."
+npm install -g tree-sitter-cli
+
+# Formatters + linters used by conform.nvim / the LSP setup in kickstart
+log "Installing neovim formatters & linters..."
+brew install \
+  ruff \
+  clang-format \
+  stylua \
+  shfmt
+npm install -g prettier
+# cmake-format lives in the Python 'cmakelang' package (uv installs it isolated)
+if command -v uv &>/dev/null; then
+  uv tool install cmakelang || warn "cmakelang install failed; run 'uv tool install cmakelang'"
+else
+  pip3 install --user cmakelang || warn "cmakelang install failed; install cmakelang for cmake-format"
+fi
 
 # ── General dev tools ────────────────────────────────────────────────────────
 log "Installing general dev tools..."
