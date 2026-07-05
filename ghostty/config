@@ -1,8 +1,23 @@
+# Theme (matches tmux + neovim: Catppuccin Mocha)
 theme = catppuccin-mocha
+
+# Font
 font-family = "MesloLGS Nerd Font"
 font-size = 14
-mouse-hide-while-typing = true
-window-decoration = true
-macos-option-as-alt = true
+font-thicken = true
+
+# Look & feel
 background-opacity = 0.90
 background-blur-radius = 30
+window-padding-x = 14
+window-padding-y = 14
+window-padding-balance = true
+window-decoration = true
+macos-titlebar-style = transparent
+cursor-style = block
+cursor-style-blink = false
+unfocused-split-opacity = 0.85
+
+# Behaviour
+mouse-hide-while-typing = true
+macos-option-as-alt = true
