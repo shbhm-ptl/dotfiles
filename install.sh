@@ -99,12 +99,9 @@ else
   log "gh-dash already installed"
 fi
 
-# neofetch was removed from homebrew; try the community tap, fall back to fastfetch
-if ! brew install neofetch 2>/dev/null; then
-  warn "neofetch unavailable in homebrew — installing fastfetch instead"
-  brew install fastfetch
-  warn "Update your shell config to call 'fastfetch' instead of 'neofetch' if needed"
-fi
+# system info fetcher (neofetch is discontinued; fastfetch is its replacement)
+log "Installing fastfetch..."
+brew install fastfetch
 
 # fzf key bindings and shell completion
 log "Configuring fzf key bindings..."
@@ -136,7 +133,7 @@ else
 fi
 
 # ── Config symlinks ──────────────────────────────────────────────────────────
-mkdir -p ~/.config/starship ~/.config/tmux ~/.config/ghostty ~/.config/btop ~/.config/neofetch ~/.config/atuin ~/.config/gh-dash
+mkdir -p ~/.config/starship ~/.config/tmux ~/.config/ghostty ~/.config/btop ~/.config/atuin ~/.config/gh-dash
 
 symlink() {
   local src="$1" dst="$2"
@@ -154,7 +151,6 @@ symlink "$DOTFILES_DIR/starship/starship.toml" "$HOME/.config/starship/starship.
 symlink "$DOTFILES_DIR/tmux/tmux.conf"         "$HOME/.config/tmux/tmux.conf"
 symlink "$DOTFILES_DIR/ghostty/config"         "$HOME/.config/ghostty/config"
 symlink "$DOTFILES_DIR/btop/btop.conf"         "$HOME/.config/btop/btop.conf"
-symlink "$DOTFILES_DIR/neofetch/config.conf"   "$HOME/.config/neofetch/config.conf"
 symlink "$DOTFILES_DIR/atuin/config.toml"      "$HOME/.config/atuin/config.toml"
 symlink "$DOTFILES_DIR/gh-dash/config.yml"     "$HOME/.config/gh-dash/config.yml"
 
