@@ -46,7 +46,8 @@ brew install \
   zsh-syntax-highlighting \
   tmux \
   btop \
-  uv
+  uv \
+  pixi
 
 # ── Neovim ecosystem ─────────────────────────────────────────────────────────
 # Config lives in the nvim submodule (lazy.nvim + Mason). Needs ripgrep/fd for
