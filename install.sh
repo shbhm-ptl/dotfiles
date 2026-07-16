@@ -45,7 +45,8 @@ brew install \
   zsh-autosuggestions \
   zsh-syntax-highlighting \
   tmux \
-  btop
+  btop \
+  uv
 
 # ── Neovim ecosystem ─────────────────────────────────────────────────────────
 # Config lives in the nvim submodule (lazy.nvim + Mason). Needs ripgrep/fd for
@@ -70,14 +71,11 @@ brew install \
   ruff \
   clang-format \
   stylua \
-  shfmt
-npm install -g prettier
-# cmake-format lives in the Python 'cmakelang' package (uv installs it isolated)
-if command -v uv &>/dev/null; then
-  uv tool install cmakelang || warn "cmakelang install failed; run 'uv tool install cmakelang'"
-else
-  pip3 install --user cmakelang || warn "cmakelang install failed; install cmakelang for cmake-format"
-fi
+  shfmt \
+  prettier
+# cmake-format has no brew formula; it lives in the Python 'cmakelang' package
+# (uv is brew-installed above and puts the tool in ~/.local/bin, isolated)
+uv tool install cmakelang || warn "cmakelang install failed; run 'uv tool install cmakelang'"
 
 # ── General dev tools ────────────────────────────────────────────────────────
 log "Installing general dev tools..."
@@ -147,6 +145,7 @@ symlink() {
 
 log "Symlinking configs..."
 symlink "$DOTFILES_DIR/zsh/.zshrc"             "$HOME/.zshrc"
+symlink "$DOTFILES_DIR/zsh/.zprofile"          "$HOME/.zprofile"
 symlink "$DOTFILES_DIR/starship/starship.toml" "$HOME/.config/starship/starship.toml"
 symlink "$DOTFILES_DIR/tmux/tmux.conf"         "$HOME/.config/tmux/tmux.conf"
 symlink "$DOTFILES_DIR/ghostty/config"         "$HOME/.config/ghostty/config"
