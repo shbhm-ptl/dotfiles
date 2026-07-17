@@ -2,10 +2,10 @@ onboarding = false
 # herdr — agent multiplexer (https://herdr.dev)
 
 [keys]
-# herdr's default prefix is ctrl+b, which collides with the tmux prefix.
-# ctrl+a is free (tmux uses ctrl+b), so herdr gets ctrl+a when running
-# inside a tmux pane.
-prefix = "ctrl+a"
+# ctrl+b matches the tmux prefix (one muscle memory for both). Note: when
+# herdr runs INSIDE a tmux pane, tmux eats ctrl+b first — reach herdr with
+# ctrl+b ctrl+b, or run herdr directly in the terminal (the usual setup).
+prefix = "ctrl+b"
 
 [theme]
 # picked during herdr onboarding; "catppuccin" is also built in if you
