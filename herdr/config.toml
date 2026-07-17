@@ -1,3 +1,4 @@
+onboarding = false
 # herdr — agent multiplexer (https://herdr.dev)
 
 [keys]
@@ -7,5 +8,7 @@
 prefix = "ctrl+a"
 
 [theme]
-# matches Ghostty / tmux / neovim (Catppuccin Mocha palette)
-name = "catppuccin"
+# picked during herdr onboarding; "catppuccin" is also built in if you
+# want it to match Ghostty / tmux / neovim again
+name = "dracula"
+auto_switch = false
