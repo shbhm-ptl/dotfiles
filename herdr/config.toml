@@ -1,0 +1,11 @@
+# herdr — agent multiplexer (https://herdr.dev)
+
+[keys]
+# herdr's default prefix is ctrl+b, which collides with the tmux prefix.
+# ctrl+a is free (tmux uses ctrl+b), so herdr gets ctrl+a when running
+# inside a tmux pane.
+prefix = "ctrl+a"
+
+[theme]
+# matches Ghostty / tmux / neovim (Catppuccin Mocha palette)
+name = "catppuccin"

@@ -88,7 +88,8 @@ brew install \
   curl \
   make \
   atuin \
-  diffnav
+  diffnav \
+  herdr
 
 # gh-dash (GitHub PR/issue/notifications dashboard) is a gh CLI extension
 if ! gh extension list 2>/dev/null | grep -q "dlvhdr/gh-dash"; then
@@ -132,7 +133,7 @@ else
 fi
 
 # ── Config symlinks ──────────────────────────────────────────────────────────
-mkdir -p ~/.config/starship ~/.config/tmux ~/.config/ghostty ~/.config/btop ~/.config/atuin ~/.config/gh-dash
+mkdir -p ~/.config/starship ~/.config/tmux ~/.config/ghostty ~/.config/btop ~/.config/atuin ~/.config/gh-dash ~/.config/herdr
 
 symlink() {
   local src="$1" dst="$2"
@@ -153,6 +154,13 @@ symlink "$DOTFILES_DIR/ghostty/config"         "$HOME/.config/ghostty/config"
 symlink "$DOTFILES_DIR/btop/btop.conf"         "$HOME/.config/btop/btop.conf"
 symlink "$DOTFILES_DIR/atuin/config.toml"      "$HOME/.config/atuin/config.toml"
 symlink "$DOTFILES_DIR/gh-dash/config.yml"     "$HOME/.config/gh-dash/config.yml"
+symlink "$DOTFILES_DIR/herdr/config.toml"      "$HOME/.config/herdr/config.toml"
+
+# herdr <-> Claude Code integration (agent state in herdr's sidebar);
+# no-op outside herdr panes, idempotent to re-run
+if command -v herdr &>/dev/null; then
+  herdr integration install claude || warn "herdr claude integration failed; run 'herdr integration install claude'"
+fi
 
 # ── Import existing shell history into atuin ────────────────────────────────
 if command -v atuin &>/dev/null; then
