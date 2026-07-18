@@ -10,5 +10,11 @@ prefix = "ctrl+b"
 [theme]
 # picked during herdr onboarding; "catppuccin" is also built in if you
 # want it to match Ghostty / tmux / neovim again
-name = "dracula"
+name = "catppuccin"
 auto_switch = false
+
+[ui]
+show_agent_labels_on_pane_borders = true
+
+[ui.toast]
+delivery = "herdr"
