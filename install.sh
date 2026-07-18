@@ -89,7 +89,9 @@ brew install \
   make \
   atuin \
   diffnav \
-  herdr
+  herdr \
+  mosh \
+  gnhf
 
 # gh-dash (GitHub PR/issue/notifications dashboard) is a gh CLI extension
 if ! gh extension list 2>/dev/null | grep -q "dlvhdr/gh-dash"; then
@@ -113,6 +115,30 @@ brew install --cask ghostty || warn "Ghostty already installed or unavailable"
 
 log "Installing MesloLGS Nerd Font..."
 brew install --cask font-meslo-lg-nerd-font || warn "Font already installed"
+
+# Tailscale (private network: SSH/mosh into this Mac from phone/laptop).
+# The cask needs sudo for its system extension - fine in an interactive run
+log "Installing Tailscale..."
+brew install --cask tailscale || warn "Tailscale needs sudo; run 'brew install --cask tailscale' manually"
+
+# ── Agent skills & tools (Kun Chen stack, managed by npx skills) ─────────────
+# Skills land in ~/.agents/skills and are symlinked into every agent's dir
+log "Installing agent skills..."
+npx -y skills add kunchenguid/axi -g --all
+npx -y skills add kunchenguid/lavish-axi -g -y -a '*' -s lavish
+npx -y skills add kunchenguid/no-mistakes -g --all
+npx -y skills add kunchenguid/gnhf -g --all
+
+# Go binaries (install to ~/.local/bin when it is in PATH, else sudo)
+log "Installing no-mistakes + treehouse..."
+command -v no-mistakes >/dev/null || curl -fsSL https://raw.githubusercontent.com/kunchenguid/no-mistakes/main/docs/install.sh | sh
+command -v treehouse   >/dev/null || curl -fsSL https://kunchenguid.github.io/treehouse/install.sh | sh
+
+# firstmate agent distro (cd into it and launch `claude` for crew supervision)
+if [ ! -d "$HOME/code/firstmate" ]; then
+  log "Cloning firstmate..."
+  git clone https://github.com/kunchenguid/firstmate "$HOME/code/firstmate"
+fi
 
 # ── zsh plugins (not via brew) ───────────────────────────────────────────────
 if [ ! -d "$HOME/.config/fzf-tab" ]; then
@@ -155,6 +181,13 @@ symlink "$DOTFILES_DIR/btop/btop.conf"         "$HOME/.config/btop/btop.conf"
 symlink "$DOTFILES_DIR/atuin/config.toml"      "$HOME/.config/atuin/config.toml"
 symlink "$DOTFILES_DIR/gh-dash/config.yml"     "$HOME/.config/gh-dash/config.yml"
 symlink "$DOTFILES_DIR/herdr/config.toml"      "$HOME/.config/herdr/config.toml"
+
+# global agent instructions (style rules read by opencode/codex/etc.;
+# the same rules are duplicated into ~/.claude/CLAUDE.md, which stays local)
+mkdir -p ~/.codex ~/.config/opencode
+symlink "$DOTFILES_DIR/agents/AGENTS.md"       "$HOME/AGENTS.md"
+symlink "$DOTFILES_DIR/agents/AGENTS.md"       "$HOME/.codex/AGENTS.md"
+symlink "$DOTFILES_DIR/agents/AGENTS.md"       "$HOME/.config/opencode/AGENTS.md"
 
 # herdr <-> Claude Code integration (agent state in herdr's sidebar);
 # no-op outside herdr panes, idempotent to re-run
