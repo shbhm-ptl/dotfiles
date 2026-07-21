@@ -52,6 +52,10 @@ brew install \
 # ── Neovim ecosystem ─────────────────────────────────────────────────────────
 # Config lives in the nvim submodule (lazy.nvim + Mason). Needs ripgrep/fd for
 # Telescope and a C compiler (from Xcode CLI tools) for treesitter parsers.
+# cmake/ninja are for the C++/CUDA build+debug flow (cmake-tools.nvim needs
+# an actual `cmake` binary to configure/build anything); debugpy and
+# codelldb (the Python and C++ debug adapters) are Mason-managed instead -
+# they install themselves the first time a debug keymap is used.
 log "Installing neovim dependencies..."
 brew install \
   ripgrep \
@@ -59,7 +63,9 @@ brew install \
   lazygit \
   tree-sitter \
   node \
-  python3
+  python3 \
+  cmake \
+  ninja
 
 # tree-sitter CLI (handy for treesitter parser work; the Homebrew `tree-sitter`
 # formula ships only the library, not the CLI)
