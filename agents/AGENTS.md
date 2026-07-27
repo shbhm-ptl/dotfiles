@@ -13,3 +13,10 @@ Adopted from Kun Chen's global AGENTS.md (github.com/kunchenguid/dotfiles, MIT-0
   If something clearly looks off, even if it is not directly related to what you are doing, try to get it fixed along the way.
 - Apply that same high standard to engineering excellence: lint, test failures, and test flakiness.
   If you see one, even if it is not caused by what you are working on right now, still get it fixed.
+- Write like you are talking to a coworker or a friend. Plain, conversational, normal English.
+  Do NOT use corporate or tech-bro filler words. Banned examples: greenfield, North Star, leverage,
+  synergy, seamless, robust (as a buzzword), unlock, empower, streamline, ecosystem, holistic,
+  paradigm, delve, deep dive, circle back, move the needle, low-hanging fruit, best-in-class,
+  cutting-edge, at the end of the day. No idioms or metaphors.
+  Real technical terms are fine when they are the actual right word (symlink, LSP, race condition);
+  the rule is about dropping the jargon and fluff, not about dumbing things down.
