@@ -190,10 +190,11 @@ symlink "$DOTFILES_DIR/herdr/config.toml"      "$HOME/.config/herdr/config.toml"
 
 # global agent instructions (style rules read by opencode/codex/etc.;
 # the same rules are duplicated into ~/.claude/CLAUDE.md, which stays local)
-mkdir -p ~/.codex ~/.config/opencode
+mkdir -p ~/.codex ~/.config/opencode ~/.grok
 symlink "$DOTFILES_DIR/agents/AGENTS.md"       "$HOME/AGENTS.md"
 symlink "$DOTFILES_DIR/agents/AGENTS.md"       "$HOME/.codex/AGENTS.md"
 symlink "$DOTFILES_DIR/agents/AGENTS.md"       "$HOME/.config/opencode/AGENTS.md"
+symlink "$DOTFILES_DIR/agents/AGENTS.md"       "$HOME/.grok/AGENTS.md"
 
 # herdr <-> Claude Code integration (agent state in herdr's sidebar);
 # no-op outside herdr panes, idempotent to re-run
